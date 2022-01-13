@@ -1,5 +1,7 @@
 package entities;
 
+import dtos.AuctionDTO;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -19,6 +21,14 @@ public class Auction implements Serializable {
     public Auction() {
     }
 
+
+
+    public Auction(String name, String date, String time, String location) {
+        this.name = name;
+        this.date = date;
+        this.time = time;
+        this.location = location;
+    }
 
     public Long getId() {
         return id;
@@ -60,10 +70,7 @@ public class Auction implements Serializable {
         this.location = location;
     }
 
-    public Auction(String name, String date, String time, String location) {
-        this.name = name;
-        this.date = date;
-        this.time = time;
-        this.location = location;
-    }
+
+
+
 }

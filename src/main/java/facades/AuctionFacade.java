@@ -1,5 +1,6 @@
 package facades;
 
+import dtos.AuctionDTO;
 import entities.Auction;
 
 import javax.persistence.EntityManager;
@@ -13,6 +14,7 @@ public class AuctionFacade {
 
     private static EntityManagerFactory emf;
     private static AuctionFacade instance;
+
 
     public static AuctionFacade getAuctionFacade(EntityManagerFactory _emf) {
         if (instance == null)   {
@@ -37,6 +39,20 @@ public class AuctionFacade {
                 auctionList.add(a);
             }
             return auctionList;
+        } finally {
+            em.close();
+        }
+    }
+
+    public Auction createAuction(String name, String date, String time, String location) {
+        EntityManager em = emf.createEntityManager();
+        Auction auction = new Auction(name,date,time,location);
+
+        try {
+            em.getTransaction().begin();
+            em.persist(auction);
+            em.getTransaction().commit();
+          return new Auction("","","","");
         } finally {
             em.close();
         }

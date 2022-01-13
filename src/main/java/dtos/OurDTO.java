@@ -10,6 +10,7 @@ public class OurDTO {
     private String name;
     private String gender;
     private String probability;
+
     private ArrayList<String> results;
 
 

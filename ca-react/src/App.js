@@ -19,14 +19,8 @@ import {
 } from "react-router-dom";
 
 
-// This site has 3 pages, all of which are rendered
-// dynamically in the browser (not server rendered).
-//
-// Although the page does not ever refresh, notice how
-// React Router keeps the URL up to date as you navigate
-// through the site. This preserves the browser history,
-// making sure things like the back button and bookmarks
-// work properly.
+
+
 
 export default function BasicExample() {
   const [activity, setActivity] = useState("");
@@ -36,55 +30,36 @@ export default function BasicExample() {
   const [message, setMessage] = useState("");
 
   const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedInUser, setLoggedInUser] = useState("");
+  const [loggedInAdmin, setLoggedInAdmin] = useState("");
   const [errorMessage, setErrorMessage] = useState('All is good ... so far');
 
+  
   const logout = () => {
     facade.logout();
     setLoggedIn(false);
     setErrorMessage('Logged out.')
   };
+ 
   
-
-  useEffect( () => {
-      fetch("https://www.boredapi.com/api/activity")
-      .then(res => res.json())
-      .then(data => (setActivity(data.activity), setType(data.type)))
-  },[])
-
-  useEffect( () => {
-    fetch("https://catfact.ninja/fact")
-    .then(res => res.json())
-    .then(data => setFact(data.fact))
-},[])
-
-useEffect( () => {
-  fetch("https://dog.ceo/api/breeds/image/random")
-  .then(res => res.json())
-  .then(data => setMessage(data.message))
-}, [])
-  
-useEffect(() => {
-  fetch("http://localhost:8080/Exam/api/auctions/allauctions")
+  useEffect(() => {
+  fetch("https://thiasmeyer.dk/tomcat/exam-sp6/api/auctions/allauctions")
     .then(res => res.json())
     .then(data => {
+      let temp = [];
        data.forEach(element => {
         const newAuction = {
           name: element.name,
           date: element.date,
           time: element.time,
           location: element.location
-        }
-         auction.push(newAuction);
-         setAuction(auction);
+         }
          
-       
-      })
+         temp.push(newAuction);
+       })
+       setAuction(temp);
     })
 },[]) 
-
-
-
-
 
 
   return (
@@ -93,18 +68,6 @@ useEffect(() => {
         <ul className="header">
           <li>
             <NavLink exact activeClassName="selected" to="/">Home</NavLink>
-          </li>
-          <li>
-            <NavLink exact activeClassName="selected" to="/bored">Bored</NavLink>
-          </li>
-          <li>
-            <NavLink exact activeClassName="selected" to="/cat">Cat</NavLink>
-          </li>
-          <li>
-            <NavLink exact activeClassName="selected" to="/dog">Dog</NavLink>
-          </li>
-          <li>
-            <NavLink exact activeClassName="selected" to="/genderize">Genderize</NavLink>
           </li>
           <li>
             <NavLink exact activeClassName="selected" to="/AllAuctions">SP1</NavLink>
@@ -124,29 +87,23 @@ useEffect(() => {
         <Switch>
           <Route exact path="/">
             <Home 
-            logout={logout}
-            loggedIn={loggedIn}
-            setLoggedIn={setLoggedIn}
-            facade={facade}
-            setErrorMessage={setErrorMessage}
+                logout={logout}
+                loggedIn={loggedIn}
+                setLoggedIn={setLoggedIn}
+                facade={facade}
+                setErrorMessage={setErrorMessage}
+                loggedInUser={loggedInUser}
+                setLoggedInUser={setLoggedInUser}
             />
           </Route>
           <Route path="/bored">
               {facade.hasUserAccess('user', loggedIn) && 
               <Bored facade={facade} setErrorMessage={setErrorMessage} activity={activity} type={type}/>}
           </Route>
-          <Route path="/cat">
-            <Cat fact={fact}/>
-          </Route>
-          <Route path="/dog">
-            <Dog message={message} />
-          </Route>
-          <Route path="/genderize">
-          <Genderize/>
-            </Route>
             <Route path="/AllAuctions">
-              <AllAuctions
-                auction={auction} />
+            {facade.hasUserAccess('user', loggedIn) && 
+              <AllAuctions auction={auction} facade={facade} setErrorMessage={setErrorMessage}/>}
+                
           </Route>
         </Switch>
         </div>

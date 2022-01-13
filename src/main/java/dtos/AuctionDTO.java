@@ -1,5 +1,7 @@
 package dtos;
 
+import entities.Auction;
+
 import java.time.Clock;
 import java.util.Date;
 
@@ -10,6 +12,13 @@ public class AuctionDTO {
     private String location;
 
     public AuctionDTO() {
+    }
+
+    public AuctionDTO(String name, String date, String time, String location) {
+    this.name = name;
+    this.date = date;
+    this.time = time;
+    this.location = location;
     }
 
     public String getName() {
