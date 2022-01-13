@@ -48,7 +48,4 @@ public class AuctionResource {
         auctionFacade.createAuction(a1.getName(), a1.getDate(), a1.getTime(), a1.getLocation());
         return "{\"msg\": \"New Auction created: " + a1.getName() + "\"}";
     }
-
-
-
 }

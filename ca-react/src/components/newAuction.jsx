@@ -28,7 +28,7 @@ import { useState } from "react";
                     location: auctionLocation
                 })
             };
-                fetch('https://thiasmeyer.dk/tomcat/Exam-sp6/api/auctions/newAuction', options)
+                fetch('http://thiasmeyer.dk/tomcat/exam-sp6/api/auctions/newAuction', options)
         };
         
         const newName = (event) => {
