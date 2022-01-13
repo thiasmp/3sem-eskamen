@@ -43,7 +43,7 @@ export default function BasicExample() {
  
   
   useEffect(() => {
-  fetch("https://thiasmeyer.dk/tomcat/exam-sp6/api/auctions/allauctions")
+  fetch("https:/thiasmeyer.dk/tomcat/api/auctions/allauctions")
     .then(res => res.json())
     .then(data => {
       let temp = [];
