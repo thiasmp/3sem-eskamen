@@ -2,7 +2,9 @@ import React, {useState, useEffect} from "react";
 
 export default function Home({ facade, setLoggedIn, setErrorMessage, logout, loggedIn }) {
     const initialState = {username : "", password : ""}
-    const [login, setLogin] = useState(initialState);
+  const [login, setLogin] = useState(initialState);
+  
+
 
 const changeName = (event) => {
     //console.log([event.target.name])

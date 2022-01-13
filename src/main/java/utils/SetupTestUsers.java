@@ -1,6 +1,7 @@
 package utils;
 
 
+import entities.Auction;
 import entities.Role;
 import entities.User;
 import org.mindrot.jbcrypt.BCrypt;
@@ -15,15 +16,17 @@ public class SetupTestUsers {
     EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
     EntityManager em = emf.createEntityManager();
     
-    // IMPORTAAAAAAAAAANT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    // This breaks one of the MOST fundamental security rules in that it ships with default users and passwords
-    // CHANGE the three passwords below, before you uncomment and execute the code below
+     //IMPORTAAAAAAAAAANT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     //This breaks one of the MOST fundamental security rules in that it ships with default users and passwords
+    //CHANGE the three passwords below, before you uncomment and execute the code below
     // Also, either delete this file, when users are created or rename and add to .gitignore
     // Whatever you do DO NOT COMMIT and PUSH with the real passwords
 
     User user = new User("user", "testHest");
     User admin = new User("admin", "testHest");
     User both = new User("user_admin", "testHest");
+    Auction auction = new Auction("båd-1","13-01-22","10.21","København");
+    Auction auction2 = new Auction("Auction 2","13-01-22","11.37","Svendborg");
 
     if(admin.getUserPass().equals("test")||user.getUserPass().equals("test")||both.getUserPass().equals("test"))
       throw new UnsupportedOperationException("You have not changed the passwords");
@@ -40,6 +43,8 @@ public class SetupTestUsers {
     em.persist(user);
     em.persist(admin);
     em.persist(both);
+    em.persist(auction);
+    em.persist(auction2);
     em.getTransaction().commit();
     System.out.println("PW: " + user.getUserPass());
     System.out.println("Testing user with OK password: " + user.verifyPassword("testHest"));

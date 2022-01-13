@@ -1,4 +1,5 @@
 import logo from './logo.svg';
+import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 import "./style2.css";
 import Home from './components/Home';
@@ -7,6 +8,7 @@ import Cat from './components/Cat';
 import Dog from './components/Dog';
 import Genderize from './components/Genderize';
 import facade from './facade';
+import AllAuctions from './components/AllAuctions';
 import React, { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
@@ -30,6 +32,7 @@ export default function BasicExample() {
   const [activity, setActivity] = useState("");
   const [type, setType] = useState("");
   const [fact, setFact] = useState("");
+  const [auction, setAuction] = useState([]);
   const [message, setMessage] = useState("");
 
   const [loggedIn, setLoggedIn] = useState(false);
@@ -58,7 +61,27 @@ useEffect( () => {
   fetch("https://dog.ceo/api/breeds/image/random")
   .then(res => res.json())
   .then(data => setMessage(data.message))
-},[])
+}, [])
+  
+useEffect(() => {
+  fetch("http://localhost:8080/Exam/api/auctions/allauctions")
+    .then(res => res.json())
+    .then(data => {
+       data.forEach(element => {
+        const newAuction = {
+          name: element.name,
+          date: element.date,
+          time: element.time,
+          location: element.location
+        }
+         auction.push(newAuction);
+         setAuction(auction);
+         
+       
+      })
+    })
+},[]) 
+
 
 
 
@@ -82,6 +105,9 @@ useEffect( () => {
           </li>
           <li>
             <NavLink exact activeClassName="selected" to="/genderize">Genderize</NavLink>
+          </li>
+          <li>
+            <NavLink exact activeClassName="selected" to="/AllAuctions">SP1</NavLink>
           </li>
         </ul>
 
@@ -117,6 +143,10 @@ useEffect( () => {
           </Route>
           <Route path="/genderize">
           <Genderize/>
+            </Route>
+            <Route path="/AllAuctions">
+              <AllAuctions
+                auction={auction} />
           </Route>
         </Switch>
         </div>
