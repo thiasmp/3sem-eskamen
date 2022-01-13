@@ -93,6 +93,7 @@ export default function Home({
           {/* <button onClick={handleClick}>Sign Up</button>  */}
         </form>
       )}
+      
       <p>Role: {facade.getUserRoles()}</p>
 
       <button onClick={logout}

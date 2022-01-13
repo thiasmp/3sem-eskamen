@@ -1,9 +1,7 @@
 package utils;
 
 
-import entities.Auction;
-import entities.Role;
-import entities.User;
+import entities.*;
 import org.mindrot.jbcrypt.BCrypt;
 
 import javax.persistence.EntityManager;
@@ -27,12 +25,15 @@ public class SetupTestUsers {
     User both = new User("user_admin", "testHest");
     Auction auction = new Auction("båd-1","13-01-22","10.21","København");
     Auction auction2 = new Auction("Auction 2","13-01-22","11.37","Svendborg");
+    Owner owner = new Owner("Thias",1,"test@test.dk");
+    Boat boat = new Boat("Dorit","Bertram",30);
 
     if(admin.getUserPass().equals("test")||user.getUserPass().equals("test")||both.getUserPass().equals("test"))
       throw new UnsupportedOperationException("You have not changed the passwords");
 
     em.getTransaction().begin();
     Role userRole = new Role("user");
+    
     Role adminRole = new Role("admin");
     user.addRole(userRole);
     admin.addRole(adminRole);
@@ -45,10 +46,13 @@ public class SetupTestUsers {
     em.persist(both);
     em.persist(auction);
     em.persist(auction2);
+    owner.addBoat(boat);
+    em.persist(owner);
+
     em.getTransaction().commit();
-    System.out.println("PW: " + user.getUserPass());
-    System.out.println("Testing user with OK password: " + user.verifyPassword("testHest"));
-    System.out.println("Testing user with wrong password: " + user.verifyPassword("test1"));
+    //System.out.println("PW: " + user.getUserPass());
+   // System.out.println("Testing user with OK password: " + user.verifyPassword("testHest"));
+   // System.out.println("Testing user with wrong password: " + user.verifyPassword("test1"));
     System.out.println("Created TEST Users");
    
   }
