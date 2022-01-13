@@ -2,14 +2,15 @@ import { useState } from "react";
 
 
 
-    function newAuction(props) {
+        export default  function NewAuction(props) {
       
         const initialState = {
             name: "",
             date: "",
             time: "",
-            location: "",
-        };
+            location: ""
+          };
+          
         const [auctionName, setAuctionName] = useState(initialState.name);
         const [auctionDate, setAuctionDate] = useState(initialState.date);
         const [auctionTime, setAuctionTime] = useState(initialState.time);
@@ -28,7 +29,7 @@ import { useState } from "react";
                     location: auctionLocation
                 })
             };
-                fetch('http://thiasmeyer.dk/tomcat/exam-sp6/api/auctions/newAuction', options)
+                fetch('https://thiasmeyer.dk/tomcat/exam-sp6/api/auctions/newAuction', options)
         };
         
         const newName = (event) => {
@@ -95,9 +96,6 @@ import { useState } from "react";
               </form>
           </div>
         )
-
-
-
 
 }
         

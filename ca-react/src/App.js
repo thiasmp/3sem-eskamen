@@ -9,6 +9,7 @@ import Dog from './components/Dog';
 import Genderize from './components/Genderize';
 import facade from './facade';
 import AllAuctions from './components/AllAuctions';
+import NewAuction from './components/NewAuction';
 import React, { useEffect, useState } from 'react';
 import {
   BrowserRouter as Router,
@@ -69,6 +70,11 @@ export default function BasicExample() {
               SP1
             </NavLink>
           </li>
+          <li>
+            <NavLink exact activeClassName="selected" to="/newAuction">
+              SP4
+            </NavLink>
+          </li>
         </ul>
 
         <hr />
@@ -93,16 +99,7 @@ export default function BasicExample() {
                 setLoggedInUser={setLoggedInUser}
               />
             </Route>
-            <Route path="/bored">
-              {facade.hasUserAccess('user', loggedIn) && (
-                <Bored
-                  facade={facade}
-                  setErrorMessage={setErrorMessage}
-                  activity={activity}
-                  type={type}
-                />
-              )}
-            </Route>
+ 
             <Route path="/AllAuctions">
               {facade.hasUserAccess('user', loggedIn) && (
                 <AllAuctions
@@ -110,6 +107,11 @@ export default function BasicExample() {
                   facade={facade}
                   setErrorMessage={setErrorMessage}
                 />
+              )}
+            </Route>
+            <Route>
+              {facade.hasUserAccess('admin', loggedIn) && (
+                <NewAuction />
               )}
             </Route>
           </Switch>
