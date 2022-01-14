@@ -52,9 +52,12 @@ public class AuctionFacade {
             em.getTransaction().begin();
             em.persist(auction);
             em.getTransaction().commit();
-          return new Auction("","","","");
+
         } finally {
             em.close();
         }
+        return auction;
     }
+
+
 }

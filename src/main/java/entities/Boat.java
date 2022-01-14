@@ -22,7 +22,7 @@ public class Boat implements Serializable {
         this.year = year;
     }
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "boatList")
     private List<Owner> ownerList = new ArrayList<>();
 
 
@@ -61,4 +61,5 @@ public class Boat implements Serializable {
     public void setYear(int year) {
         this.year = year;
     }
+
 }

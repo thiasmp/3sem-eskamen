@@ -1,12 +1,12 @@
 package entities;
 
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+
 public class Owner implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -24,7 +24,7 @@ public class Owner implements Serializable {
         this.email = email;
     }
 
-    @ManyToMany(mappedBy = "ownerList" , cascade = CascadeType.ALL)
+    @ManyToMany
     private List<Boat> boatList = new ArrayList<>();
 
 
@@ -63,7 +63,8 @@ public class Owner implements Serializable {
         this.email = email;
     }
 
-    public void addBoat(Boat boat) {
-        boatList.add(boat);
+    public void addBoat(Boat ownerBoat) {
+        boatList.add(ownerBoat);
     }
+
 }

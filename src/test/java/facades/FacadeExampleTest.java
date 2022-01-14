@@ -1,12 +1,13 @@
 package facades;
 
+import entities.Auction;
 import entities.Role;
 import entities.User;
 import utils.EMF_Creator;
-import entities.RenameMe;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import org.junit.jupiter.api.AfterAll;
+
 import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeAll;
@@ -19,6 +20,7 @@ public class FacadeExampleTest {
 
     private static EntityManagerFactory emf;
     private static UserFacade facade;
+    private static AuctionFacade afacade;
 
     public FacadeExampleTest() {
     }
@@ -70,6 +72,16 @@ public class FacadeExampleTest {
         Role userRole = new Role("user");
         expected.addRole(userRole);
         assertEquals(expected.getUserName(), actual.getUserName());
+    }
+
+    @Test
+    public void testCreateAuction()   {
+        afacade = AuctionFacade.getAuctionFacade(emf);
+        Auction actual = afacade.createAuction("boat","13-01-22","23.00,","København");
+        Auction expected = new Auction("boat","13-01-22","23.00","København");
+        assertEquals(expected.getName() ,actual.getName());
+        assertEquals(expected.getDate(),actual.getDate());
+
     }
 
 }

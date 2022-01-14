@@ -118,7 +118,4 @@ public class RenameMeResourceTest {
                 .body("size", notNullValue());
     }
 
-
-
-
 }

@@ -33,12 +33,13 @@ public class SetupTestUsers {
 
     em.getTransaction().begin();
     Role userRole = new Role("user");
-    
+
     Role adminRole = new Role("admin");
     user.addRole(userRole);
     admin.addRole(adminRole);
     both.addRole(userRole);
     both.addRole(adminRole);
+    owner.addBoat(boat);
     em.persist(userRole);
     em.persist(adminRole);
     em.persist(user);
@@ -46,10 +47,9 @@ public class SetupTestUsers {
     em.persist(both);
     em.persist(auction);
     em.persist(auction2);
-    owner.addBoat(boat);
     em.persist(owner);
-
     em.getTransaction().commit();
+
     //System.out.println("PW: " + user.getUserPass());
    // System.out.println("Testing user with OK password: " + user.verifyPassword("testHest"));
    // System.out.println("Testing user with wrong password: " + user.verifyPassword("test1"));
