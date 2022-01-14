@@ -24,7 +24,7 @@ public class Owner implements Serializable {
         this.email = email;
     }
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "ownerList",cascade = CascadeType.ALL)
     private List<Boat> boatList = new ArrayList<>();
 
 

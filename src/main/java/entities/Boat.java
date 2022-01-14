@@ -22,7 +22,7 @@ public class Boat implements Serializable {
         this.year = year;
     }
 
-    @ManyToMany(mappedBy = "boatList")
+    @ManyToMany
     private List<Owner> ownerList = new ArrayList<>();
 
 
